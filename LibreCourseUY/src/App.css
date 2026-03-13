@@ -1,0 +1,5 @@
+.hero-last-contribution::before {
+  content: "●";
+  color: #22c55e;
+  margin-right: 8px;
+}
