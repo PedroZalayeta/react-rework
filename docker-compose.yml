@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: .
+      target: backend
+      args:
+        NODE_VERSION: ${NODE_VERSION:-20.12.2}
+    environment:
+      - PORT=6453
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+    ports:
+      - "6453:6453"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      target: frontend
+      args:
+        NODE_VERSION: ${NODE_VERSION:-20.12.2}
+        VITE_BACKEND_URL: ${VITE_BACKEND_URL:-http://localhost:6453}
+    depends_on:
+      - backend
+    ports:
+      - "4173:80"
+    restart: unless-stopped
