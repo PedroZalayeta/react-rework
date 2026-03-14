@@ -39,12 +39,57 @@
 .hero-last-contribution {
   margin-top: 2rem;
   text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(103, 158, 248, 0.3);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 
+    0 0 20px rgba(103, 158, 248, 0.15),
+    inset 0 0 20px rgba(103, 158, 248, 0.05);
+  animation: pulse-border 2s ease-in-out infinite;
 }
 
-.hero-last-contribution::before {
-  content: "●";
+@keyframes pulse-border {
+  0%, 100% {
+    border-color: rgba(103, 158, 248, 0.3);
+    box-shadow: 
+      0 0 20px rgba(103, 158, 248, 0.15),
+      inset 0 0 20px rgba(103, 158, 248, 0.05);
+  }
+  50% {
+    border-color: rgba(103, 158, 248, 0.6);
+    box-shadow: 
+      0 0 30px rgba(103, 158, 248, 0.25),
+      inset 0 0 30px rgba(103, 158, 248, 0.1);
+  }
+}
+
+.hero-last-contribution > div:first-child {
   color: #22c55e;
-  margin-right: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.hero-commit-meta {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.commit-link {
+  color: #679ef8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.commit-link:hover {
+  color: #93c5fd;
+  text-shadow: 0 0 10px rgba(103, 158, 248, 0.5);
 }
 
 .button-important {

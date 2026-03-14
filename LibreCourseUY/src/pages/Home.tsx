@@ -9,10 +9,16 @@ interface CommitData {
     date: string
     relativeTime?: string
     summary?: string
+    url?: string
+    repoUrl?: string
 }
 
 function Home() {
-    const [commit, setCommit] = useState<CommitData | null>(null)
+    const [commit, setCommit] = useState<CommitData | null>(() => {
+        if (typeof window === 'undefined') return null
+        const cached = localStorage.getItem('lastCommit')
+        return cached ? JSON.parse(cached) : null
+    })
     const [error, setError] = useState<string>("")
 
     const summaryLines = commit?.summary?.split("\n") ?? []
@@ -50,6 +56,7 @@ function Home() {
                 if (!cancelled) {
                     setCommit(payload)
                     setError("")
+                    localStorage.setItem('lastCommit', JSON.stringify(payload))
                 }
             } catch (err: any) {
                 console.error(err)
@@ -91,7 +98,13 @@ function Home() {
                         direction="top"
                         className="text-6xl font-extrabold text-white"
                     />
-                    <p className="text-3xl font-bold text-gray-500">Open Source projects made in Uruguay</p>
+                    <BlurText
+                        text="Open Source projects made in Uruguay"
+                        delay={25}
+                        animateBy="letters"
+                        direction="bottom"
+                        className="text-3xl font-bold text-gray-500"
+                    />
                 </div>
 
                 <div className="hero-buttons">
@@ -106,7 +119,23 @@ function Home() {
                         </div>
 
                         <div className="hero-commit-meta">
-                            {summaryLines[1] ?? `${commit.author} in ${commit.repo}`}
+                            <a
+                                href={`https://github.com/${commit.author}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="commit-link"
+                            >
+                                {commit.author}
+                            </a>
+                            {" in "}
+                            <a
+                                href={commit.repoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="commit-link"
+                            >
+                                {commit.repo}
+                            </a>
                         </div>
                     </div>
                 ) : error ? (
