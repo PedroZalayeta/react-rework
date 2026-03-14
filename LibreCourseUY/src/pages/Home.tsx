@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import BlurText from "../components/BlutText";
+import Beams from "../components/Beams";
 
 interface CommitData {
     repo: string
@@ -71,10 +73,25 @@ function Home() {
     return (
         <>
             <section className="hero-section">
-
+                <Beams
+                    beamWidth={2}
+                    beamHeight={50}
+                    beamNumber={20}
+                    lightColor="#679ef8"
+                    speed={1}
+                    noiseIntensity={1}
+                    scale={0.2}
+                    rotation={45}
+                />
                 <div className="hero-title">
-                    <h1 className="title">Welcome To LibreCourseUY</h1>
-                    <h4 className="subtitle">Open Source projects made in Uruguay</h4>
+                    <BlurText
+                        text="Welcome to LibreCourseUY"
+                        delay={25}
+                        animateBy="letters"
+                        direction="top"
+                        className="text-6xl font-extrabold text-white"
+                    />
+                    <p className="text-3xl font-bold text-gray-500">Open Source projects made in Uruguay</p>
                 </div>
 
                 <div className="hero-buttons">
