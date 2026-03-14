@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-ARG NODE_VERSION=20.12.2
+ARG NODE_VERSION=22.12.0
 
 #############################
 # Backend runtime image
