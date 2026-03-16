@@ -118,12 +118,13 @@ function Home() {
                             {summaryLines[0] ?? `Last contribution ${commit.relativeTime ?? "just now"} ago`}
                         </div>
 
-                        <div className="hero-commit-meta">
+                        <div className="hero-commit-meta" style={{ pointerEvents: 'auto', position: 'relative', zIndex: 100 }}>
                             <a
                                 href={`https://github.com/${commit.author}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="commit-link"
+                                style={{ color: '#679ef8', textDecoration: 'none', cursor: 'pointer', display: 'inline-block', position: 'relative', zIndex: 101 }}
                             >
                                 {commit.author}
                             </a>
@@ -133,6 +134,7 @@ function Home() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="commit-link"
+                                style={{ color: '#679ef8', textDecoration: 'none', cursor: 'pointer', display: 'inline-block', position: 'relative', zIndex: 101 }}
                             >
                                 {commit.repo}
                             </a>
