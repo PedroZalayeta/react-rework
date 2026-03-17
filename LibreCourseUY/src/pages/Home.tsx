@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import BlurText from "../components/BlutText";
 import Beams from "../components/Beams";
+import RadialOrbitalTimeline from "../components/RadialOrbitalTimeline";
+import WhyEnglishSection from "../components/WhyEnglishSection";
+import FeaturesCards from "../components/FeaturesCards";
+import { FeatureSteps } from "../components/ui/feature-section";
+import { BackgroundPaths } from "../components/ui/background-paths";
 
 interface CommitData {
     repo: string
@@ -78,7 +83,7 @@ function Home() {
 
 
     return (
-        <>
+        <BackgroundPaths>
             <section className="hero-section">
                 <Beams
                     beamWidth={2}
@@ -96,14 +101,14 @@ function Home() {
                         delay={25}
                         animateBy="letters"
                         direction="top"
-                        className="text-6xl font-extrabold text-white"
+                        className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white"
                     />
                     <BlurText
                         text="Open Source projects made in Uruguay"
                         delay={25}
                         animateBy="letters"
                         direction="bottom"
-                        className="text-3xl font-bold text-gray-500"
+                        className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-500"
                     />
                 </div>
 
@@ -148,52 +153,59 @@ function Home() {
 
             </section>
 
-            <section className="why-english-section">
-                <div className="why-english-card">
-                    <h6 className="small-title">¿Por qué todo está en inglés?</h6>
-                    <p className="text-normal">
-                        Puede parecer raro ver todo en inglés en un sitio para uruguayos. Te explicamos porqué:
-                    </p>
+            <div className="h-px bg-gradient-to-r from-transparent via-[#b29758] to-transparent opacity-50" />
 
-                    <li>
-                        <ol>El inglés es el idioma de la programación: La mayoría de la documentación, tutoriales y recursos están en inglés. Dominarlo te abre puertas a nivel mundial.</ol>
-                        <ol>Buscar soluciones en inglés: Cuando tengas un error, el 90% de las respuestas están en Stack Overflow / Reddit y documentación en inglés.</ol>
-                        <ol>Preparación profesional: Las empresas tech contratan personas que pueden trabajar en inglés. Es una habilidad fundamental.</ol>
-                        <ol>Comunidad global: Al contribuir a proyectos open source, vas a interactuar con personas de todo el mundo.</ol>
-                    </li>
-
-                    <p className="text-grey">
-                        💡 Consejo: No necesitas ser fluido. Con poder leer y escribir lo básico ya es suficiente para empezar.
-                    </p>
-                </div>
+            <section>
+                <WhyEnglishSection />
             </section>
 
-            <section className="features">
-                <div className="feature-card">
-                    <div className="feature-icon">🎯</div>
-                    <h3 className="feature-title">Learn by Doing</h3>
-                    <p className="feature-text">
-                        Contribute to real projects and learn industry-standard tools like Git, GitHub, and modern frameworks.
-                    </p>
-                </div>
+            <div className="h-px bg-gradient-to-r from-transparent via-[#b29758] to-transparent opacity-50" />
 
-                <div className="feature-card">
-                    <div className="feature-icon">🤝</div>
-                    <h3 className="feature-title">Community Driven</h3>
-                    <p className="feature-text">
-                        Built by students, for students. Join a community of learners and help others just like you.
-                    </p>
-                </div>
-
-                <div className="feature-card">
-                    <div className="feature-icon">🚀</div>
-                    <h3 className="feature-title">Build Your Portfolio</h3>
-                    <p className="feature-text">
-                        Get real-world experience and add meaningful projects to your developer portfolio.
-                    </p>
-                </div>
+            <section>
+                <FeaturesCards />
             </section>
-        </>
+
+            <div className="h-px bg-gradient-to-r from-transparent via-[#b29758] to-transparent opacity-50" />
+
+            <section className="py-24" style={{ backgroundColor: 'transparent' }}>
+                <FeatureSteps 
+                    features={[
+                        { 
+                            step: 'Mission 1', 
+                            title: 'Learn to use Git and GitHub professionally',
+                            content: 'Master version control and collaboration workflows used by industry professionals.', 
+                            image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=2070&auto=format&fit=crop' 
+                        },
+                        { 
+                            step: 'Mission 2',
+                            title: 'Contribute to open source projects',
+                            content: 'Gain real-world experience by contributing to meaningful open source projects.',
+                            image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop'
+                        },
+                        { 
+                            step: 'Mission 3',
+                            title: 'Build practical skills for your future career',
+                            content: 'Develop the technical and soft skills employers are looking for.',
+                            image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop'
+                        },
+                        {
+                            step: 'Mission 4',
+                            title: 'Connect with other students',
+                            content: 'Form study groups and build your professional network in tech.',
+                            image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop'
+                        },
+                    ]}
+                    title="Our Mission"
+                    autoPlayInterval={5000}
+                />
+            </section>
+
+            <div className="h-px bg-gradient-to-r from-transparent via-[#b29758] to-transparent opacity-50" />
+
+            <section>
+                <RadialOrbitalTimeline />
+            </section>
+        </BackgroundPaths>
     );
 }
 
