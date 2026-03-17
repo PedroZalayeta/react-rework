@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-function FloatingPaths({ position }: { position: number }) {
-    const paths = Array.from({ length: 36 }, (_, i) => ({
+function FloatingPaths({ position, isVisible }: { position: number; isVisible: boolean }) {
+    const paths = Array.from({ length: 20 }, (_, i) => ({
         id: i,
         d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
             380 - i * 5 * position
@@ -14,8 +15,12 @@ function FloatingPaths({ position }: { position: number }) {
         } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
         color: `rgba(178, 151, 88, ${0.1 + i * 0.03})`,
         width: 0.5 + i * 0.03,
-        duration: 20 + (i % 10) + 10,
+        duration: 25 + (i % 10) * 2,
     }));
+
+    if (!isVisible) {
+        return null;
+    }
 
     return (
         <div className="absolute inset-0 pointer-events-none">
@@ -55,11 +60,29 @@ export function BackgroundPaths({
 }: {
     children?: React.ReactNode;
 }) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsVisible(entry.isIntersecting);
+            },
+            { threshold: 0.1 }
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className="relative min-h-screen w-full overflow-hidden" style={{ backgroundColor: '#191c40' }}>
+        <div ref={containerRef} className="relative w-full overflow-hidden" style={{ backgroundColor: '#191c40' }}>
             <div className="absolute inset-0">
-                <FloatingPaths position={1} />
-                <FloatingPaths position={-1} />
+                <FloatingPaths position={1} isVisible={isVisible} />
+                <FloatingPaths position={-1} isVisible={isVisible} />
             </div>
 
             <div className="relative z-10">

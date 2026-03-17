@@ -87,6 +87,7 @@ export default function WhyEnglishSection() {
                         src={tab.image}
                         alt={tab.title}
                         className="h-full max-h-48 w-full rounded-md object-cover"
+                        loading="lazy"
                       />
                     </div>
                   </AccordionContent>
@@ -100,6 +101,7 @@ export default function WhyEnglishSection() {
               src={activeImage}
               alt="Feature preview"
               className="aspect-[4/3] rounded-md object-cover w-full h-full"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#23264d]/60 to-transparent pointer-events-none" />
           </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 
@@ -27,6 +27,26 @@ export function FeatureSteps({
   const [currentFeature, setCurrentFeature] = useState(0)
   const [progress, setProgress] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setIsPaused(true)
+        } else {
+          setIsPaused(false)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     if (isPaused) return
@@ -50,7 +70,7 @@ export function FeatureSteps({
   }
 
   return (
-    <div className={cn("p-8 md:p-12", className)}>
+    <div ref={containerRef} className={cn("p-8 md:p-12", className)}>
       <div className="max-w-7xl mx-auto w-full">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-10 text-center text-white">
           {title}
@@ -120,6 +140,7 @@ export function FeatureSteps({
                         src={feature.image}
                         alt={feature.step}
                         className="w-full h-full object-cover transition-transform transform"
+                        loading="lazy"
                       />
                       <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black via-black/50 to-transparent" />
                     </motion.div>
